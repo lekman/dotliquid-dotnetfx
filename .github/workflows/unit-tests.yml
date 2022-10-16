@@ -12,9 +12,7 @@ jobs:
         name: Unit Tests
         uses: ./.github/workflows/build_verification_dotnet.yml
         with:
-            project_path: ./Library/LogicAdapters/GCP
+            project_path: ./src
             use_submodules: false
             run_tests: true
-            label: GCP Adapter
-            scan_sonarqube: false
         secrets: inherit
