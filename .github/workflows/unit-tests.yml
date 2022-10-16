@@ -10,35 +10,11 @@ on:
 jobs:
     test:
         name: Unit Tests
-        runs-on: ubuntu-latest
-        permissions:
-            actions: read
-            contents: read
-            security-events: write
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
-            # Execute the unit tests
-            - name: Run unit tests
-              run: dotnet test ./src --configuration Debug --logger "trx;LogFileName=test-results.trx"
-
-            # Locate the output file, so that the user does not have to specify path implicitly
-            - name: Find test report file
-              id: find
-              run: |
-                  echo "::set-output name=file::$(find ./src -name '*.trx')"
-
-            # Test report is generated and uploaded to the Git action run
-            - name: Show test report
-              uses: dorny/test-reporter@v1
-              with:
-                  name: Test Report
-                  path: ${{ steps.find.outputs.file }}
-                  reporter: dotnet-trx
-                  only-summary: "false"
-                  list-suites: "all"
-                  list-tests: "all"
-                  max-annotations: "50"
-                  fail-on-error: "true"
+        uses: ./.github/workflows/build_verification_dotnet.yml
+        with:
+            project_path: ./Library/LogicAdapters/GCP
+            use_submodules: false
+            run_tests: true
+            label: GCP Adapter
+            scan_sonarqube: false
+        secrets: inherit
