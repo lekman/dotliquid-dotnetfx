@@ -1,4 +1,4 @@
-name: "Build Verification"
+name: "Code Analysis"
 
 on:
     push:
@@ -40,26 +40,3 @@ jobs:
 
             - name: Perform CodeQL Analysis
               uses: github/codeql-action/analyze@v2
-
-            # Execute the unit tests
-            - name: Run unit tests
-              run: dotnet test ./src --configuration Debug --logger "trx;LogFileName=test-results.trx"
-
-            # Locate the output file, so that the user does not have to specify path implicitly
-            - name: Find test report file
-              id: find
-              run: |
-                  echo "::set-output name=file::$(find ./src -name '*.trx')"
-
-            # Test report is generated and uploaded to the Git action run
-            - name: Show test report
-              uses: dorny/test-reporter@v1
-              with:
-                  name: Test Report
-                  path: ${{ steps.find.outputs.file }}
-                  reporter: dotnet-trx
-                  only-summary: "false"
-                  list-suites: "all"
-                  list-tests: "all"
-                  max-annotations: "50"
-                  fail-on-error: "true"
