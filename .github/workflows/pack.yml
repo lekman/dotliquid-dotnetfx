@@ -30,6 +30,6 @@ jobs:
               with:
                   PROJECT_FILE_PATH: ./src/DotLiquid/DotLiquid.csproj
                   PACKAGE_NAME: DotLiquid-Net6
-                  VERSION_REGEX: ‘^\s*<Version>(.*)<\/Version>\s*$’
+                  VERSION_FILE_PATH: package-version.txt
                   TAG_FORMAT: ‘*’
                   NUGET_KEY: ${{secrets.NUGET_API_KEY}}
