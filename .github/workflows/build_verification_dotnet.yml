@@ -37,7 +37,7 @@ on:
 
 jobs:
     build:
-        name: Build, Scan and Test
+        name: Build and Test
         runs-on: ubuntu-latest
 
         steps:
