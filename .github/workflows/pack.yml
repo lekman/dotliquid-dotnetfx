@@ -28,7 +28,7 @@ jobs:
             - name: Publish to NuGet
               uses: brandedoutcast/publish-nuget@v2.5.5
               with:
-                  PROJECT_FILE_PATH: ./src/DotLiquid/DotLiquid.csproj
+                  PROJECT_FILE_PATH: src/DotLiquid/DotLiquid.csproj
                   PACKAGE_NAME: DotLiquid-Net6
                   VERSION_FILE_PATH: ./src/DotLiquid/package-version.txt
                   TAG_FORMAT: ‘*’
