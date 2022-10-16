@@ -2,6 +2,7 @@ name: "Package"
 
 on:
     push:
+    workflow_dispatch: # Allow on demand execution
     pull_request:
         # The branches below must be a subset of the branches above
         branches: [master]
@@ -20,10 +21,15 @@ jobs:
               with:
                   dotnet-version: 6.0.x
 
-            - name: Pack
+            - name: Build
               run: |
-                  dotnet pack ./src --configuration Release
+                  dotnet build ./src --configuration Release
 
-            - name: Prepare packages
-              run: |
-                  dotnet nuget add source --username lekman --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/lekman/index.json"
+            - name: Publish to NuGet
+              uses: brandedoutcast/publish-nuget@v2.5.5
+              with:
+                  PROJECT_FILE_PATH: ./src/DotLiquid/DotLiquid.csproj
+                  PACKAGE_NAME: DotLiquid-Net6
+                  VERSION_REGEX: ‘^\s*<Version>(.*)<\/Version>\s*$’
+                  TAG_FORMAT: ‘*’
+                  NUGET_KEY: ${{secrets.NUGET_API_KEY}}
