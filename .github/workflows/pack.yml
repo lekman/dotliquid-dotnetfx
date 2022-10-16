@@ -16,20 +16,9 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Setup .NET Core
-              uses: actions/setup-dotnet@v1
-              with:
-                  dotnet-version: 6.0.x
-
-            - name: Build
-              run: |
-                  dotnet build ./src/DotLiquid --configuration Release
-
             - name: Publish to NuGet
               uses: brandedoutcast/publish-nuget@v2.5.5
               with:
                   PROJECT_FILE_PATH: src/DotLiquid/DotLiquid.csproj
                   PACKAGE_NAME: DotLiquid-Net6
-                  VERSION_FILE_PATH: ./src/DotLiquid/package-version.txt
-                  TAG_FORMAT: ‘*’
                   NUGET_KEY: ${{secrets.NUGET_API_KEY}}
