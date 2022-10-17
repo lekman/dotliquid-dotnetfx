@@ -1,4 +1,4 @@
-﻿# DotLiquid
+﻿# DotLiquid for .NET 6.0
 
 **NOTE**: This is a local override of the main project [DotLiquid](https://github.com/dotliquid/dotliquid). It's purpose is to create a .NET 6.0 port of the core library for use with emulating and unit testing liquid parsing within the Azure ecosystem.
 
